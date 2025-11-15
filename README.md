@@ -48,28 +48,36 @@ This will generate a JAR file in the build/libs/ directory, e.g.:
 build/libs/weather-sdk-1.0.0-SNAPSHOT.jar
 ```
 
-### 3. Add the JAR to Your Project
-**Option A: Add manually**
+### 3. Install the JAR into your local Maven repository (Recommended)
 
-Copy the JAR into your project’s libs/ folder and add it as a dependency.
-- Gradle:
-```gradle
-dependencies {
-    implementation files('libs/weather-sdk-1.0.0-SNAPSHOT.jar')
-}
+This makes the SDK available for both Maven and Gradle projects:
+```bash
+mvn install:install-file \
+  -Dfile=path/to/weather-sdk-1.0.0-SNAPSHOT.jar \
+  -DgroupId=test.kameleoon \
+  -DartifactId=weather-sdk \
+  -Dversion=1.0.0-SNAPSHOT \
+  -Dpackaging=jar
 ```
-- Maven:
+Replace path/to/ with the actual path to your JAR.
+### 4. Add the SDK as a Dependency
+- Maven
 ```xml
 <dependency>
     <groupId>test.kameleoon</groupId>
     <artifactId>weather-sdk</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <scope>system</scope>
-    <systemPath>${project.basedir}/libs/weather-sdk-1.0.0-SNAPSHOT.jar</systemPath>
 </dependency>
 ```
-**Option B: Use JitPack directly (no local JAR needed)**
+- Gradle
+```bash
+dependencies {
+    implementation 'test.kameleoon:weather-sdk:1.0.0-SNAPSHOT'
+}
+```
+Gradle will automatically find the JAR in your local Maven repository (~/.m2/repository).
 
+### 6. Optional: Use JitPack (GitHub Hosted)
 You can use the GitHub repository directly via JitPack
 :
 
@@ -103,7 +111,7 @@ dependencies {
 <dependency>
     <groupId>com.github.AkylbekkyzyAsel</groupId>
     <artifactId>weather-sdk</artifactId>
-    <version>main-SNAPSHOT</version>
+    <version>master-SNAPSHOT</version>
 </dependency>
 ```
 ---
